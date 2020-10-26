@@ -14,6 +14,7 @@ def main():
     # start Jarvis
     jarvis = Jarvis.Jarvis()
     jarvis.executor('enable sound')
+    jarvis.executor('gtts') # google collects data (conversations are insecure)
     command = " ".join(sys.argv[1:]).strip()
     jarvis.executor(command)
 

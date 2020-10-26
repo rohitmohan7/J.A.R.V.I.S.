@@ -338,7 +338,7 @@ class CmdInterpreter(Cmd):
         # what if the platform does not have any engines, travis doesn't have sapi5 acc to me
 
         try:
-            self.update_data('gtts_status', False)
+            self._api.update_data('gtts_status', False)
             gtts_status = self._api.get_data('gtts_status')
             self.speech = create_voice(
                 self, gtts_status, rate=self.speech_rate)
