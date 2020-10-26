@@ -13,6 +13,7 @@ def main():
     colorama.init()
     # start Jarvis
     jarvis = Jarvis.Jarvis()
+    jarvis.executor('enable sound')
     command = " ".join(sys.argv[1:]).strip()
     jarvis.executor(command)
 

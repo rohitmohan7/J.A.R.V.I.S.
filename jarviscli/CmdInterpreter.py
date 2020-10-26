@@ -355,7 +355,7 @@ class CmdInterpreter(Cmd):
             self._plugin_manager.add_directory(directory)
 
         self._activate_plugins()
-        self._init_plugin_info()
+        #self._init_plugin_info()
 
         self._api.say(self.first_reaction_text)
 
@@ -422,13 +422,14 @@ class CmdInterpreter(Cmd):
         if self._api.is_spinner_running():
             self._api.spinner_stop('Some error has occured')
 
-        self.say("Goodbye, see you later!", Fore.RED)
+        #self.say("Goodbye, see you later!", Fore.RED)
         self.scheduler.stop_all()
         sys.exit()
+        print("J.A.R.V.I.S. is dead")
 
     def execute_once(self, command):
         self.get_api().eval(command)
-        self.close()
+        #self.close()
 
     def error(self):
         """Jarvis let you know if an error has occurred."""
