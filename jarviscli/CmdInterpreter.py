@@ -338,6 +338,7 @@ class CmdInterpreter(Cmd):
         # what if the platform does not have any engines, travis doesn't have sapi5 acc to me
 
         try:
+            #self._api.update_data('gtts_status', False)
             gtts_status = self._api.get_data('gtts_status')
             self.speech = create_voice(
                 self, gtts_status, rate=self.speech_rate)
@@ -355,9 +356,12 @@ class CmdInterpreter(Cmd):
             self._plugin_manager.add_directory(directory)
 
         self._activate_plugins()
-        self._init_plugin_info()
+        #self._init_plugin_info()
 
-        self._api.say(self.first_reaction_text)
+        if (len(self.first_reaction_text) > 0):
+            self._api.say(self.first_reaction_text)
+            
+        self.is_running = True
 
     def _init_plugin_info(self):
         plugin_status_formatter = {
@@ -412,6 +416,10 @@ class CmdInterpreter(Cmd):
                 + plugin_name,
                 complete(completions))
 
+
+    def get_is_running(self):
+        return self.is_running
+
     def get_api(self):
         return self._api
 
@@ -422,13 +430,15 @@ class CmdInterpreter(Cmd):
         if self._api.is_spinner_running():
             self._api.spinner_stop('Some error has occured')
 
-        self.say("Goodbye, see you later!", Fore.RED)
+        #self.say("Goodbye, see you later!", Fore.RED)
+        print("killing J.A.R.V.I.S.")
         self.scheduler.stop_all()
         sys.exit()
+        self.is_running = False
 
     def execute_once(self, command):
         self.get_api().eval(command)
-        self.close()
+        #self.close()
 
     def error(self):
         """Jarvis let you know if an error has occurred."""
@@ -459,11 +469,11 @@ class CmdInterpreter(Cmd):
         if arg:
             Cmd.do_help(self, arg)
         else:
-            self.say("")
+            #self.say("")
             headerString = "These are valid commands for Jarvis"
             formatString = "Format: command ([aliases for command])"
             self.say(headerString)
-            self.say(formatString, Fore.BLUE)
+            #self.say(formatString, Fore.BLUE)
             pluginDict = self._plugin_manager.get_plugins()
             uniquePlugins = {}
             for key in pluginDict.keys():

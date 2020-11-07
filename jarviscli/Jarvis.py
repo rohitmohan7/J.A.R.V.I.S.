@@ -34,15 +34,15 @@ class Jarvis(CmdInterpreter, object):
     # variable used at Breakpoint #1.
     # allows Jarvis say "Hi", only at the first interaction.
     first_reaction_text = ""
-    first_reaction_text += Fore.BLUE + \
-        'Jarvis\' sound is by default disabled.' + Fore.RESET
-    first_reaction_text += "\n"
-    first_reaction_text += Fore.BLUE + 'In order to let Jarvis talk out loud type: '
-    first_reaction_text += Fore.RESET + Fore.RED + 'enable sound' + Fore.RESET
-    first_reaction_text += "\n"
-    first_reaction_text += Fore.BLUE + \
-        "Type 'help' for a list of available actions." + Fore.RESET
-    first_reaction_text += "\n"
+    #first_reaction_text += Fore.BLUE + \
+    #    'Jarvis\' sound is by default disabled.' + Fore.RESET
+    #first_reaction_text += "\n"
+    #first_reaction_text += Fore.BLUE + 'In order to let Jarvis talk out loud type: '
+    #first_reaction_text += Fore.RESET + Fore.RED + 'enable sound' + Fore.RESET
+    #first_reaction_text += "\n"
+    #first_reaction_text += Fore.BLUE + \
+    #    "Type 'help' for a list of available actions." + Fore.RESET
+    #first_reaction_text += "\n"
     prompt = (
         Fore.RED
         + "{} Hi, what can I do for you?\n".format(PROMPT_CHAR)
@@ -81,6 +81,9 @@ class Jarvis(CmdInterpreter, object):
         """Jarvis let's you know if an error has occurred."""
         print_say("I could not identify your command...", self, Fore.RED)
 
+    def get_is_running(self):
+        return CmdInterpreter.get_is_running(self)
+
     def precmd(self, line):
         """Hook that executes before every command."""
         words = line.split()
@@ -110,8 +113,9 @@ class Jarvis(CmdInterpreter, object):
                 + "{} What can I do for you?\n".format(PROMPT_CHAR)
                 + Fore.RESET)
             self.first_reaction = False
-        if self.enable_voice:
-            self.speech.text_to_speech("What can I do for you?\n")
+        #if self.enable_voice:
+        #    self.speech.text_to_speech("What can I do for you?\n")
+        # The quieter you become, the more you are able to hear ;)
 
     def speak(self, text):
         if self.enable_voice:
