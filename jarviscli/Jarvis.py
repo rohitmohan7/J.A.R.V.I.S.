@@ -81,6 +81,9 @@ class Jarvis(CmdInterpreter, object):
         """Jarvis let's you know if an error has occurred."""
         print_say("I could not identify your command...", self, Fore.RED)
 
+    def get_is_running(self):
+        return CmdInterpreter.get_is_running(self)
+
     def precmd(self, line):
         """Hook that executes before every command."""
         words = line.split()
